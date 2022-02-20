@@ -27,18 +27,20 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var personController = Get.put(PersonController());
+    // var personController = Get.put(PersonController());
 
     return Scaffold(
-      floatingActionButton: FloatingActionButton(onPressed: () {
-        personController.changeToUpperCase();
-      }),
       appBar: AppBar(
         title: const Text('getX'),
       ),
       body: Center(
-        child: Obx(() => Text('Hello ' + personController.person.value.name)),
-      ),
+          child: GetX<PersonController>(
+              init: PersonController(),
+              builder: (personController) =>
+                  Text('Hello ' + personController.person.value.name))),
+      floatingActionButton: FloatingActionButton(onPressed: () {
+        Get.find<PersonController>().changeToUpperCase();
+      }),
     );
   }
 }
